@@ -1,5 +1,7 @@
 package be.ste.st.spring.blibli.modele;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -26,22 +28,25 @@ public class BManager {
 		
 		System.out.println("init.manager");
 	}
-	public List<LivreImpl> listerLivre() {
-		return this.dao.getAllLivres();
+	public List<EBook> listerLivre(){
+		
+		List<EBook> ebook = new ArrayList<EBook>();
+		for(LivreImpl book: this.dao.getAllLivres() ) {
+			ebook.add(new EBook(book, this.dao.getReservationsByLivreCode(book.getCode())));
+		}
+		return ebook;
 	}
-	public List<CollectionImpl> listerCollection(){
-		return this.dao.getAllCollections();
+	public List<CollectionImpl> listerCollection(){return this.dao.getAllCollections();}
+	public void ajouterLivre(String titre, short nombreDePages, Date dateDeParution, int idCollection, short numeroEdition, List<Integer> auteurs) {this.dao.addLivre(titre, nombreDePages, dateDeParution, idCollection, numeroEdition, auteurs);}
+	public List<AuteurImpl> listerAutheur(){return this.dao.getAllAuteurs();}
+	public AuteurImpl addAuteur(String prenom, String nom) {return  this.dao.addAuteur(prenom, nom);}
+	public void delAuteur(String id) {this.dao.removeAuteur(Integer.parseInt(id));}
+	public CollectionImpl addCollection(String col_name) {return this.dao.addCollection(col_name);}
+	public void delco(String id) {this.dao.removeCollection(Integer.parseInt(id));}	
+	public boolean isBooked(String code){
+		return !this.dao.getReservationsByLivreCode(code).isEmpty();
 	}
-	public List<AuteurImpl> listerAutheur(){
-		return this.dao.getAllAuteurs();
+	public void delBook(String code) {
+		if(!this.isBooked(code)) this.dao.removeLivre(code);
 	}
-	public AuteurImpl addAuteur(String prenom, String nom) {
-		return  this.dao.addAuteur(prenom, nom);
-
-	}
-	public void delAuteur(String id) {
-		this.dao.removeAuteur(Integer.parseInt(id));
-	}
-	
-
 }

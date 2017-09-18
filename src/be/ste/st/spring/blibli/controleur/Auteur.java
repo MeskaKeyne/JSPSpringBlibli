@@ -23,7 +23,7 @@ public class Auteur {
 		List<AuteurImpl> liste = this.manager.listerAutheur(); 
 		if(liste == null) liste = new ArrayList<AuteurImpl>();
 		param.put("LISTE_AUTEUR",liste);
-		return "/auteur.jsp";
+		return pages.AUTEUR.toString();
 	}
 	
 	@org.springframework.web.bind.annotation.RequestMapping("addAuteur")

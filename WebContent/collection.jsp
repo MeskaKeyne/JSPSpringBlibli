@@ -17,8 +17,13 @@
 	<c:if test="${fn:length(collections) > 1}">
 		<c:forEach var="a" items="${collections}">
 			#<c:out value="${a.nom}"/>
+			<a href="${pageContext.request.contextPath}/spring/delco?ID=${a.id}&DELETE=true">x</a>&nbsp; 
 			<br>
 		</c:forEach>
 	</c:if>
+<form action="${pageContext.request.contextPath}/spring/addCo" method="post">
+	#Collection: <input type="text" name="COL_NAME" value="0"/>
+	<input type="submit" value="envoyer"/>
+</form>
 </body>
 </html>
