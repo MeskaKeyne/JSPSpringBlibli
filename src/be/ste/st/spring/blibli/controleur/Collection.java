@@ -5,24 +5,25 @@ import java.util.List;
 import java.util.Map;
 
 import be.ste.st.spring.blibli.modele.BManager;
-import be.steformations.pc.java_data.biblio.beans.LivreImpl;
+import be.steformations.pc.java_data.biblio.beans.CollectionImpl;
 
 //@org.springframework.stereotype.Component  
 @org.springframework.stereotype.Controller 
 @org.springframework.context.annotation.Scope("request") 
-
-public class Book {
+public class Collection {
 	
 	@org.springframework.beans.factory.annotation.Autowired
 	protected BManager manager;
 	
-	public Book() {}
-	@org.springframework.web.bind.annotation.RequestMapping("booklist")
+	public Collection() {}
+	
+	@org.springframework.web.bind.annotation.RequestMapping("clist")
 	public String getBookList(Map<String, Object> param) {
-		List<LivreImpl > liste = this.manager.listerLivre(); 
-		if(liste == null) liste = new ArrayList<LivreImpl>();
-		param.put("LISTE_LIVRE",liste);
-		return "/book.jsp";
+		List<CollectionImpl> liste = this.manager.listerCollection(); 
+		if(liste == null) liste = new ArrayList<CollectionImpl>();
+		param.put("LISTE_COLLECTION",liste);
+		return "/collection.jsp";
 	}
+	
 
 }
