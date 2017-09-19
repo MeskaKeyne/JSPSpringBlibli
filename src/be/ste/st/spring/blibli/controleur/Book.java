@@ -52,11 +52,11 @@ public class Book {
 		return this.getBookList(param);
 	}
 	@org.springframework.web.bind.annotation.RequestMapping("delbook")
-	public String delAuteur(@org.springframework.web.bind.annotation.RequestParam("ID") String id, 
+	public String delBook(@org.springframework.web.bind.annotation.RequestParam("ID") String id, 
 							@org.springframework.web.bind.annotation.RequestParam("DELETE") boolean del,
 							Map<String, Object> args) {
 		
-		if(del && id.matches("^[0-9]*$")) this.manager.delco(id);
+		if(del)this.manager.delBook(id);
 		return this.getBookList(args);
 		
 	}

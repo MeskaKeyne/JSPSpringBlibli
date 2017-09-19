@@ -31,12 +31,13 @@ public class Collection {
 		return this.getBookList(args);	
 	}
 	@org.springframework.web.bind.annotation.RequestMapping("delco")
-	public String delAuteur(@org.springframework.web.bind.annotation.RequestParam("ID") String id, 
+	public String delCo(@org.springframework.web.bind.annotation.RequestParam("ID") String id, 
 							@org.springframework.web.bind.annotation.RequestParam("DELETE") boolean del,
 							Map<String, Object> args) {
 		
-		if(del && id.matches("^[0-9]*$")) this.manager.delco(id);
-		return this.getBookList(args);
+		if(del && !this.manager.isInCollection(Integer.parseInt(id))) this.manager.delco(id);
+	
+		return "/spring/clist";
 		
 	}
 

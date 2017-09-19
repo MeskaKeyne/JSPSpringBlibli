@@ -18,7 +18,7 @@
 	<c:forEach var="a" items="${livres}">
 		#<c:out value="${a.titre}"/>
 		<c:if  test="${fn:length(a.booked) == 0}">
-		<a href="${pageContext.request.contextPath}/spring/delBook?ID=${a.code}&DELETE=true">x</a>&nbsp; 
+		<a href="${pageContext.request.contextPath}/spring/delbook?ID=${a.code}&DELETE=true">x</a>&nbsp; 
 		</c:if>
 		<br>
 	</c:forEach>

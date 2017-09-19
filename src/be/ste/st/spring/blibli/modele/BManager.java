@@ -25,8 +25,6 @@ public class BManager {
 	public BManager() {
 		this.em = Persistence.createEntityManagerFactory("postgresql_eclipselink").createEntityManager();
 		this.dao = new JpaGestionnaireBibliotheque(em);
-		
-		System.out.println("init.manager");
 	}
 	public List<EBook> listerLivre(){
 		
@@ -47,6 +45,14 @@ public class BManager {
 		return !this.dao.getReservationsByLivreCode(code).isEmpty();
 	}
 	public void delBook(String code) {
-		if(!this.isBooked(code)) this.dao.removeLivre(code);
+		this.dao.removeLivre(code);
+	}
+	public boolean isInCollection(int code) {
+		int id =this.dao.getCollectionByCode(code).getId();
+		for(LivreImpl livre : this.dao.getAllLivres()) {
+			CollectionImpl c = livre.getCollection();
+			if(c.getId()  == id ) return true;
+		}
+		return false;
 	}
 }
